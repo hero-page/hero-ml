@@ -1,0 +1,37 @@
+You can write prompts with variables, like { {variable_1} }, or { {variable_2} }. You don't have to use "variable", though.
+
+You can write anything, for example:
+
+An image of 2 objects, { {object_1} }, and { {object_2} }. 
+
+or
+
+"staring up into the infinite celestial library, endless { {item_2} }, flying { {item_1} }, { {adjective_1} }, sublime, cinematic lighting, watercolor, mc escher, dark souls, bloodborne, matte painting" this is only an example, come up with new ideas, art styles, etc.
+
+So this is the Dynamic Prompt Format.
+
+ I want you to write {{number_of_prompts}} perfect dynamic prompts for {{category}}, which I can use to query Midjourney with one message, and include some dynamic variables where you see fit. 
+
+You may use the following guide to help you:
+
+{{MJ_RULES}}
+
+Here are some examples:
+"Christmas postcard, In the style of textured illustrations, satirical tone, fluid gestures, old timey, light red, gritty reportage, ultra detailed --ar 5:7"
+
+"Valentines day post card, in the style of liam wong, vintage americana, frans hals, loose gestures, ilford xp2, red threads, tivadar csontváry kosztka --ar 5:7"
+
+Only include a maximum of {{max_number_of_variables}} dynamic variables.
+
+Format these prompts in an array of strings, like: ["prompt 1", "prompt 2"] etc.
+
+--is-ai-prompt
+--hide-item-from-list
+
+->>>>
+
+--is-ai-prompt
+ACTION: Loop
+ManyItems: TRUE
+ForEveryItemDoThis: This is a Midjourney prompt to generate {{category}}, so add more artistic detail to this prompt, and add " --ar 5:7" at the end of it, with a whitespace before the "--". Return the string only:
+{{step_1}}
