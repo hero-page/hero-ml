@@ -1,0 +1,41 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "HeroML",
+    "patterns": [
+        {
+            "include": "#action"
+        },
+        {
+            "include": "#dynamic-variables"
+        },
+        {
+            "include": "#strings"
+        }
+    ],
+    "repository": {
+        "action": {
+            "patterns": [{
+                "name": "keyword.control.heroml",
+                "match": "\\b(ACTION|Loop|ForEveryItemDoThis|ManyItems)\\b"
+            }]
+        },
+        "dynamic-variables": {
+            "patterns": [{
+                "name": "variable.parameter.heroml",
+                "match": "\\{\\{[a-zA-Z0-9_]+\\}\\}"
+            }]
+        },
+        "strings": {
+            "name": "string.quoted.double.heroml",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.heroml",
+                    "match": "\\\\."
+                }
+            ]
+        }
+    },
+    "scopeName": "source.heroml"
+}

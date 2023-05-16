@@ -1,0 +1,29 @@
+{
+  "name": "heroml",
+  "displayName": "HeroML",
+  "description": "HeroML is an AI Prompt Chain/Workflow interpreter for Apps built on https://hero.page",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.78.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hero-page/hero-ml.git"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "heroml",
+      "aliases": ["HeroML", "heroml"],
+      "extensions": [".heroml"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "heroml",
+      "scopeName": "source.heroml",
+      "path": "./syntaxes/heroml.tmLanguage.json"
+    }]
+  }
+}
