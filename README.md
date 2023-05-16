@@ -107,6 +107,37 @@ ForEveryItemDoThis: Regarding my blog post about {{topic}}, write a paragraph ab
 
 In this workflow, the first step is a prompt asking the AI to write a blog post about a certain topic, including three points. The second step is a loop action that asks the AI to write a paragraph about each point. The result of the second step will be an array of paragraphs, each about one point from the first step.
 
+# HeroML Extension for Visual Studio Code
+
+This extension provides support for HeroML in Visual Studio Code, including syntax highlighting.
+
+## Installation
+
+Follow these steps to install the HeroML extension:
+
+1. Download the `heroml-0.0.1.vsix` file from the `heroml/` directory in this repository.
+
+2. Open Visual Studio Code.
+
+3. Click on the Extensions view icon on the Sidebar or press `Ctrl+Shift+X` (or `Cmd+Shift+X` on macOS) to open the Extensions view.
+
+4. Click on the three dots `...` at the top right corner of the Extensions view, next to the `Clear Extensions Input` icon.
+
+5. From the dropdown, select `Install from VSIX...`.
+
+6. Navigate to the directory where you downloaded the `heroml-0.0.1.vsix` file, select it, and click `Open`.
+
+7. The extension will be installed and you will get a notification in VS Code.
+
+## Usage
+
+To start using the extension, simply open any `.heroml` file in VS Code. The syntax highlighting will be applied automatically.
+
+Remember to reload VS Code after installing the extension to ensure it's properly activated.
+
+Enjoy writing your HeroML workflows with syntax highlighting!
+
+
 ## Limitations
 
 1. Only one action (`Loop`) is available in v0.0.1.
