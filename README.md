@@ -1,6 +1,8 @@
 # hero-ml
 HeroML is an AI Prompt Chain/Workflow interpreter for Apps built on https://hero.page 
 
+Download [VSCode Syntax Highlighter Ext. here](https://marketplace.visualstudio.com/items?itemName=hero-page.heroml)
+
 # HeroML v0.0.1 Documentation
 
 HeroML (Hero Markup Language) is a novel approach for setting up multi-step workflows to interact with AI models like OpenAI's GPT-3 and GPT-4. 

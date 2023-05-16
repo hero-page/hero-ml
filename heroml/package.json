@@ -3,6 +3,7 @@
   "displayName": "HeroML",
   "description": "HeroML is an AI Prompt Chain/Workflow interpreter for Apps built on https://hero.page",
   "version": "0.0.1",
+  "publisher": "hero-page",
   "engines": {
     "vscode": "^1.78.0"
   },
