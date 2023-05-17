@@ -182,6 +182,23 @@ run();
 
 In this example, we're wrapping the call to `main` inside an asynchronous function called `run`. This is because `main` returns a promise that resolves with the final environment — the output of the last step in the HeroML script. The `run` function is then called to initiate the interpretation process.
 
+The response will be dependant on each step.
+If `step_1` is a normal prompt, but `step_2` is a loop, of 3 items, it will look like:
+
+
+```javascript
+let finalEnvironment = {
+  blog_title: 'SEO Optimization: A short Guide',
+  keywords: 'SEO,',
+  tone: 'informative',
+  number_of_main_points: 1,
+  step_1: '**Array of 3 objects**',
+  step_2_1: '...',
+  step_2_2: '...',
+  step_2_3: '...',
+}
+```
+
 This is all there is to using the HeroML interpreter! You can now build your own applications using HeroML. Remember to replace `Your HeroML script goes here` with your actual HeroML script.
 
 **Note:** If an error occurs during the interpretation process, it will be caught in the `catch` block and logged to the console.
