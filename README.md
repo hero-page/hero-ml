@@ -207,6 +207,12 @@ OPENAI_API_KEY="YOUR_KEY_HERE"
 
 to your `.env` file, and make sure _not_ to push it up... like me.
 
+To test, run: 
+
+```
+npx ts-node index.ts
+```
+
 This is all there is to using the HeroML interpreter! You can now build your own applications using HeroML. Remember to replace `Your HeroML script goes here` with your actual HeroML script.
 
 **Note:** If an error occurs during the interpretation process, it will be caught in the `catch` block and logged to the console.
@@ -255,7 +261,7 @@ This documentation provides a basic overview of how to create and use workflows 
 # Formatting Rules
 
 ## 1. Step Separation
-Different steps in the HeroML script are separated by `->>>>`.
+Different steps in a HeroML script are separated by `->>>>`.
 
 ## 2. Numbering
 Steps do not need to be numbered.

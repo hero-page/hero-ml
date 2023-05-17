@@ -1,5 +1,8 @@
 import { main } from './compilers/node/compile';
 
+import fs from 'fs';
+import path from 'path';
+
 const heroml = `
 I want you to generate an outline for a blog post titled "{{blog_title}}". This post will incorporate the following keywords:
 {{keywords}}
@@ -60,7 +63,21 @@ async function run() {
       
       try {
           const finalEnvironment = await main(heroml, initialValues);
+
+            // Create the output directory if it does not exist
+            const outputDir = path.resolve(__dirname, 'outputs');
+            if (!fs.existsSync(outputDir)) {
+                fs.mkdirSync(outputDir, { recursive: true });
+            }
+
+            // Define the output path
+            const outputPath = path.join(outputDir, 'response.json');
+
+            // Write the JSON data to the output file
+            fs.writeFileSync(outputPath, JSON.stringify(finalEnvironment, null, 2), 'utf8');
       } catch (error) {
           console.error('Error:', error);
       }
 }
+
+run();

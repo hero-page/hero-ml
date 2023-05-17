@@ -1,0 +1,27 @@
+I want to create a Twitter thread about {{topic}}. Please provide {{number_of_tweets}} main points that should be covered in the thread, in a structured format.
+
+Return the points as an array of objects, each with a main point and a couple of key details, like this:
+
+    [
+      {
+        "mainPoint": "Main Point 1",
+        "keyDetails": ["Detail 1", "Detail 2", "Detail 3"]
+      },
+      {
+        "mainPoint": "Main Point 2",
+        "keyDetails": ["Detail 1", "Detail 2"]
+      }
+    ]	
+
+->>>>
+
+ACTION: Loop
+ManyItems: TRUE
+ForEveryItemDoThis: Now, let's write a Tweet for each main point in the thread about "{{topic}}". The Tweet should be no more than 280 characters, and should cover the main point and all its key details in a concise way. Here's the main point and its key details for you to expand on:
+{{step_1}}
+
+->>>>
+
+Finally, write an engaging introduction and a compelling conclusion for the Twitter thread about {{topic}}. The introduction should entice followers to read the thread, and the conclusion should leave followers with a final thought or call to action. Both the introduction and conclusion should be no more than 280 characters. Format the introduction and conclusion as an array of strings like this: 
+
+        ["Introduction text", "Conclusion text"].
