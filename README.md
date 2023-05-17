@@ -17,7 +17,7 @@ Download [VSCode Syntax Highlighter Ext. here](https://marketplace.visualstudio.
 1. [HeroML v0.0.1 Documentation](#heroml-v001-documentation)
 2. [How to use HeroML Interpreter in your project](#how-to-use-heroml-interpreter-in-your-project)
 3. [HeroML Extension for Visual Studio Code](#heroml-extension-for-visual-studio-code)
-4. [Formatting Rules][#formatting-rules]
+4. [Formatting Rules](#formatting-rules)
 
 ![HeroML Image](https://firebasestorage.googleapis.com/v0/b/focushero-1650416072840.appspot.com/o/featured_images%2Fsamoshasfallen_a_cute_cartoon_of_a_spaceman_flying_in_space_whi_33f87d18-834f-4ec3-8f08-c4f79d51caaf%20(1).webp?alt=media&token=f5bcc9f9-e414-4610-b7e7-04388194e857)
 
