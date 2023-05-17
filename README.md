@@ -17,6 +17,7 @@ Download [VSCode Syntax Highlighter Ext. here](https://marketplace.visualstudio.
 1. [HeroML v0.0.1 Documentation](#heroml-v001-documentation)
 2. [How to use HeroML Interpreter in your project](#how-to-use-heroml-interpreter-in-your-project)
 3. [HeroML Extension for Visual Studio Code](#heroml-extension-for-visual-studio-code)
+4. [Formatting Rules][#formatting-rules]
 
 ![HeroML Image](https://firebasestorage.googleapis.com/v0/b/focushero-1650416072840.appspot.com/o/featured_images%2Fsamoshasfallen_a_cute_cartoon_of_a_spaceman_flying_in_space_whi_33f87d18-834f-4ec3-8f08-c4f79d51caaf%20(1).webp?alt=media&token=f5bcc9f9-e414-4610-b7e7-04388194e857)
 
@@ -250,6 +251,37 @@ Enjoy writing your HeroML workflows with syntax highlighting!
 3. The variables (`{{variable_name}}`) are static and must be defined in the first step. They cannot change throughout the workflow.
 
 This documentation provides a basic overview of how to create and use workflows in HeroML v0.0.1. As the language evolves, new features and functionalities will be added. For the most up-to-date information, always refer to the latest documentation.
+
+# HeroML Rules
+
+## 1. Step Separation
+Different steps in the HeroML script are separated by `->>>>`.
+
+## 2. Numbering
+Steps do not need to be numbered.
+
+## 3. Addressing
+You're not writing to the user, but rather to an AI model. When you include dynamic variables in the first step, the UI will already prompt the user to fill them in, and they will be replaced as if a natural part of the sentence.
+
+## 4. Dynamic Variables
+You can only create new custom dynamic variables in the first step. In any following steps, the dynamic variables are either from the first step (re-used to maintain context) or step variables, like `{{step_1}}`.
+
+## 5. Referencing Steps
+You can only reference previous steps. For example, after step 1 finishes running, in step 2, you can reference the output from step 1, like so: "Write something about `{{step_1}}`".
+
+## 6. Modes
+There are two modes in HeroML:
+### a. Default Mode
+The default mode, where no action is present, and it is a single prompt that yields a response.
+### b. Loop Action
+A loop action, denoted by:
+
+```
+ACTION: Loop
+ManyItems: TRUE
+ForEveryItemDoThis: for every item in this array, write 15 words:
+{{step_2}}
+```
 
 ### Author
 Hello there! My name is [Sam Chahine](https://twitter.com/HeroMeers), and I'm the creator of HeroML. I built this project during the #AISF hackathon, an event that brings together innovators from all walks of life to collaborate and create something amazing in the field of AI. The hackathon was hosted by [Founders, Inc.](https://f.inc/), an organization based in San Francisco that loves AI! (Who doesn't?)
