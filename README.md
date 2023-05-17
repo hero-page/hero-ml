@@ -199,6 +199,13 @@ let finalEnvironment = {
 }
 ```
 
+To use your OpenAI API key, add:
+```
+OPENAI_API_KEY="YOUR_KEY_HERE"
+```
+
+to your `.env` file, and make sure _not_ to push it up... like me.
+
 This is all there is to using the HeroML interpreter! You can now build your own applications using HeroML. Remember to replace `Your HeroML script goes here` with your actual HeroML script.
 
 **Note:** If an error occurs during the interpretation process, it will be caught in the `catch` block and logged to the console.
@@ -248,3 +255,5 @@ This documentation provides a basic overview of how to create and use workflows 
 Hello there! My name is [Sam Chahine](https://twitter.com/HeroMeers), and I'm the creator of HeroML. I built this project during the #AISF hackathon, an event that brings together innovators from all walks of life to collaborate and create something amazing in the field of AI. The hackathon was hosted by [Founders, Inc.](https://f.inc/), an organization based in San Francisco that loves AI! (Who doesn't?)
 
 HeroML is an AI Prompt Chain/Workflow interpreter that can be a game changer for developers who work with AI models like OpenAI's GPT-3 and GPT-4. I plan to add support for more models from various platforms in the future. My hope is that HeroML can become a valuable tool that helps bridge the gap between AI and human creativity.
+
+Want to build the python compiler? **PULL REQUEESSSST** 
