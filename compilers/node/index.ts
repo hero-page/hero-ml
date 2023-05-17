@@ -254,84 +254,70 @@ function checkDynamicPromptForRule(prompt: string, currentIndex: number, whiteli
 
 type Environment = { [key: string]: any };
 
-
-async function interpret(nodes: ASTNode[] | string, dynamicEnvironment: Environment, stepEnvironment: Environment = {}, index: number = 0): Promise<Environment> {
+async function interpret(nodes: ASTNode[] | string, dynamicEnvironment: Environment, stepEnvironment: Environment = {}, depth: number = 0, index: number = 0): Promise<Environment> {
     if (typeof nodes === 'string') {
         const parsedHeroMLData = await parseHeroML(nodes);
         const AST = parseHeroMLToAST(parsedHeroMLData);
         nodes = AST;
     }
-  
+
     for (const node of nodes) {
         console.log('Processing node:', node);
         console.log('Current dynamicEnvironment:', dynamicEnvironment);
         console.log('Current stepEnvironment:', stepEnvironment);
-      
-        // Create a new environment for each step
+
         let newStepEnvironment = { ...stepEnvironment };
+        let stepKey = `step_${index + 1}`;
 
         switch (node.type) {
             case 'default':
                 if (typeof node.content === 'string') {
-                    dynamicEnvironment = await evaluate(node.content, dynamicEnvironment, `step_${index + 1}`);
-                    stepEnvironment = { ...stepEnvironment, [`step_${index + 1}`]: dynamicEnvironment[`step_${index + 1}`] };
-                } else if (Array.isArray(node.content)) {
-                    dynamicEnvironment = await interpret(node.content, dynamicEnvironment, newStepEnvironment, index);
+                    dynamicEnvironment = await evaluate(node.content, dynamicEnvironment, stepKey);
                 } else {
                     throw new Error('Invalid content for default action');
                 }
                 break;
             case 'Loop':
-                const items = stepEnvironment[node.variables[0]];
-                if (!Array.isArray(items)) {
-                    // If it's not an array, treat it as a string and replace it
-                    let replacedContent = replaceDynamicVars(node.content as string, dynamicEnvironment);
-                    replacedContent = replaceStepVars(replacedContent, stepEnvironment);
-                    newStepEnvironment[node.variables[0]] = replacedContent;
-                } else {
-                    // If it is an array, loop over the items as before
-                    for (let item of items) {
-                        const loopEnvironment = { ...newStepEnvironment, [node.variables[0]]: item };
-                        if (typeof node.content === 'string') {
-                            dynamicEnvironment = await interpret(node.content, dynamicEnvironment, loopEnvironment, index);
-                        } else if (Array.isArray(node.content)) {
-                            dynamicEnvironment = await interpret(node.content, dynamicEnvironment, loopEnvironment, index);
+                try {
+                    if (node.referencedResponse) {
+                        const items = JSON.parse(dynamicEnvironment[node.referencedResponse])
+                        if (!Array.isArray(items)) {
+                            throw new Error('Loop variable is not an array');
                         } else {
-                            throw new Error('Invalid content for Loop action');
+                            let subIndex = 1;
+                            for (let item of items) {
+                                const loopEnvironment = { ...newStepEnvironment, [node.variables[0]]: item };
+                                let loopStepKey = `${stepKey}_${subIndex}`;
+                                if (typeof node.content === 'string') {
+                                    dynamicEnvironment = await evaluate(node.content, dynamicEnvironment, loopStepKey, item);
+                                    stepEnvironment[loopStepKey] = dynamicEnvironment[loopStepKey];
+                                } else {
+                                    throw new Error('Invalid content for Loop action');
+                                }
+                                subIndex++;
+                            }
                         }
+                    } else {
+                        throw new Error('Loop referenceResponse is null');
                     }
+                } catch (err) {
+                    throw new Error('Loop variable is not an array');
                 }
                 break;
+            default:
+                throw new Error(`Unknown node type: ${node.type}`);
         }
-      
         index++;
     }
 
-    // Return the final dynamic environment after all nodes have been processed
+    for (let key in stepEnvironment) {
+        dynamicEnvironment[key] = stepEnvironment[key];
+    }
+
     return dynamicEnvironment;
 }
 
-
-
-// function replacePlaceholders(text: string, environment: Environment): string {
-//     return text.replace(/{{(.*?)}}/g, (_, variable) => {
-//       console.log('Replace variable:', variable, 'Environment:', environment);
-//       if (environment.hasOwnProperty(variable)) {
-//         if (typeof environment[variable] === 'string') {
-//           // If the value is a string, return it directly
-//           return environment[variable];
-//         } else if (Array.isArray(environment[variable])) {
-//           // If the value is an array, join it into a string
-//           return environment[variable].join(', ');
-//         } else {
-//           // If the value is an object, convert it to a JSON string
-//           return JSON.stringify(environment[variable]);
-//         }
-//       } else {
-//         throw new Error(`Undefined variable: ${variable}`);
-//       }
-//     });
-// } 
+// TRY ME
 
 function replaceDynamicVars(text: string, environment: Environment): string {
     return text.replace(/{{(?!step_\d+)(.*?)}}/g, (_, variable) => {
@@ -365,7 +351,7 @@ function replaceStepVars(text: string, environment: Environment): string {
         throw new Error(`Undefined variable: ${variable}`);
       }
     });
-  }
+}
   
 
 
@@ -382,12 +368,21 @@ type GPT4Response = {
     };
 };
 
-async function evaluate(content: string, environment: Environment, variable: string): Promise<Environment> {
+async function evaluate(content: string, environment: Environment, variable: string, item: string | null = null): Promise<Environment> {
     // Replace placeholders with their values from the environment
     console.log('Before placeholder replacement:', content);
 
     let replacedContent = replaceDynamicVars(content, environment);
+
+    // Replace step variables as well
     replacedContent = replaceStepVars(replacedContent, environment);
+
+    if (item !== null) {
+        replacedContent = `${replacedContent} \n
+${JSON.stringify(item)}`;
+
+console.log("❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️");
+    };
 
     console.log('After placeholder replacement:', replacedContent);
     

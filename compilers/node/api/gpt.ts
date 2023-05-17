@@ -1,7 +1,7 @@
 import { Configuration, OpenAIApi } from 'openai';
 
 // Create a new configuration with your API key
-const configuration = new Configuration({ apiKey: "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" });
+const configuration = new Configuration({ apiKey: "KEY" });
 const openai = new OpenAIApi(configuration);
 
 interface CallGPT4Options {

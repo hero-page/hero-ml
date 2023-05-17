@@ -27,6 +27,10 @@ const assignInitialValues = (heroml: string): { [key: string]: any } => {
       tone: 'informative',
       number_of_main_points: 1
     };
+    // const initialValues: { [key: string]: any } = {
+    //     name_of_startup: 'Sambaly',
+    //     what_startup_does: "Make social networking apps"
+    // };
   
     const environment: { [key: string]: any } = {};
   
