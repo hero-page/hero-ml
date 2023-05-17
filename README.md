@@ -134,9 +134,9 @@ This guide will show you how to import and use the HeroML Interpreter in your ow
 
 Firstly, you need to import the `main` function from the HeroML Interpreter. You can do this with the following line of code:
 
-\```javascript
+```javascript
 import { main } from './compilers/node/compile';
-\```
+```
 
 Ensure that the path in the import statement correctly points to the location of the `compile.js` file in your project.
 
@@ -146,14 +146,14 @@ Before you can use the `main` function, you need to set up the initial values fo
 
 Here's an example of how to set up the initial values:
 
-\```javascript
+```javascript
 const initialValues = {
     blog_title: 'SEO Optimization: A short Guide',
     keywords: "SEO,",
     tone: 'informative',
     number_of_main_points: 1
 };
-\```
+```
 
 In this example, we're setting up four variables: `blog_title`, `keywords`, `tone`, and `number_of_main_points`.
 
@@ -166,7 +166,7 @@ After setting up your initial values, you can now use the `main` function to int
 
 Here's an example of how to use the `main` function:
 
-\```javascript
+```javascript
 const heroml = `Your HeroML script goes here`;
 
 async function run() {
@@ -178,7 +178,7 @@ async function run() {
 }
 
 run();
-\```
+```
 
 In this example, we're wrapping the call to `main` inside an asynchronous function called `run`. This is because `main` returns a promise that resolves with the final environment — the output of the last step in the HeroML script. The `run` function is then called to initiate the interpretation process.
 
