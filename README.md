@@ -1,3 +1,12 @@
+![HeroML version](https://img.shields.io/badge/HeroML-v0.0.1-%23171719)
+![GitHub contributors](https://img.shields.io/github/contributors/hero-page/hero-ml?color=%23e82f64)
+![Open issues](https://img.shields.io/github/issues-raw/hero-page/hero-ml?color=%23D264B6)
+![Last commit](https://img.shields.io/github/last-commit/hero-page/hero-ml?color=%23067AFE)
+![Forks](https://img.shields.io/github/forks/hero-page/hero-ml?style=social)
+![Stars](https://img.shields.io/github/stars/hero-page/hero-ml?style=social)
+![Watchers](https://img.shields.io/github/watchers/hero-page/hero-ml?style=social)
+
+
 # hero-ml
 HeroML is an AI Prompt Chain/Workflow interpreter for Apps built on https://hero.page 
 
@@ -45,11 +54,11 @@ You can reference the response of a previous step in your current step's prompt 
 Example:
 
 ```
-What is the capital of France? 
+What is the capital of {{country}}? 
 
 ->>>> 
 
-Write a paragraph about {{step_1}}
+Write a paragraph about the country: {{step_1}}
 ```
 
 

@@ -317,8 +317,6 @@ async function interpret(nodes: ASTNode[] | string, dynamicEnvironment: Environm
     return dynamicEnvironment;
 }
 
-// TRY ME
-
 function replaceDynamicVars(text: string, environment: Environment): string {
     return text.replace(/{{(?!step_\d+)(.*?)}}/g, (_, variable) => {
       console.log('Replace variable:', variable, 'Environment:', environment);

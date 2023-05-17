@@ -1,8 +1,11 @@
 import { Configuration, OpenAIApi } from 'openai';
+require('dotenv').config();
 
 // Create a new configuration with your API key
-const configuration = new Configuration({ apiKey: "KEY" });
+const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
 const openai = new OpenAIApi(configuration);
+
+console.log(process.env.OPENAI_API_KEY)
 
 interface CallGPT4Options {
   model: string;
@@ -20,6 +23,8 @@ async function callGPT4(options: CallGPT4Options) {
       model: options.model,
       messages: [{ role: 'user', content: options.prompt }],
     });
+
+    console.log("👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾");
 
     return {
       data: {
