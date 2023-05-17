@@ -12,6 +12,15 @@ HeroML is an AI Prompt Chain/Workflow interpreter for Apps built on https://hero
 
 Download [VSCode Syntax Highlighter Ext. here](https://marketplace.visualstudio.com/items?itemName=hero-page.heroml)
 
+# Table of Contents
+
+1. [HeroML v0.0.1 Documentation](#heroml-v001-documentation)
+2. [How to use HeroML Interpreter in your project](#how-to-use-heroml-interpreter-in-your-project)
+3. [HeroML Extension for Visual Studio Code](#heroml-extension-for-visual-studio-code)
+
+![HeroML Image](https://firebasestorage.googleapis.com/v0/b/focushero-1650416072840.appspot.com/o/featured_images%2Fsamoshasfallen_a_cute_cartoon_of_a_spaceman_flying_in_space_whi_33f87d18-834f-4ec3-8f08-c4f79d51caaf%20(1).webp?alt=media&token=f5bcc9f9-e414-4610-b7e7-04388194e857)
+
+
 # HeroML v0.0.1 Documentation
 
 HeroML (Hero Markup Language) is a novel approach for setting up multi-step workflows to interact with AI models like OpenAI's GPT-3 and GPT-4. 
@@ -60,7 +69,6 @@ What is the capital of {{country}}?
 
 Write a paragraph about the country: {{step_1}}
 ```
-
 
 ## Loop Action
 
@@ -118,6 +126,66 @@ ForEveryItemDoThis: Regarding my blog post about {{topic}}, write a paragraph ab
 
 In this workflow, the first step is a prompt asking the AI to write a blog post about a certain topic, including three points. The second step is a loop action that asks the AI to write a paragraph about each point. The result of the second step will be an array of paragraphs, each about one point from the first step.
 
+# How to use HeroML Interpreter in your project
+
+This guide will show you how to import and use the HeroML Interpreter in your own projects. 
+
+## Importing the HeroML Interpreter
+
+Firstly, you need to import the `main` function from the HeroML Interpreter. You can do this with the following line of code:
+
+\```javascript
+import { main } from './compilers/node/compile';
+\```
+
+Ensure that the path in the import statement correctly points to the location of the `compile.js` file in your project.
+
+## Setting up the Initial Values
+
+Before you can use the `main` function, you need to set up the initial values for your dynamic variables. These are the variables that will be used in your HeroML script.
+
+Here's an example of how to set up the initial values:
+
+\```javascript
+const initialValues = {
+    blog_title: 'SEO Optimization: A short Guide',
+    keywords: "SEO,",
+    tone: 'informative',
+    number_of_main_points: 1
+};
+\```
+
+In this example, we're setting up four variables: `blog_title`, `keywords`, `tone`, and `number_of_main_points`.
+
+## Using the HeroML Interpreter
+
+After setting up your initial values, you can now use the `main` function to interpret your HeroML script. You need to pass in two arguments to the `main` function:
+
+1. The HeroML script as a string
+2. The initial values you just set up
+
+Here's an example of how to use the `main` function:
+
+\```javascript
+const heroml = `Your HeroML script goes here`;
+
+async function run() {
+    try {
+        const finalEnvironment = await main(heroml, initialValues);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+run();
+\```
+
+In this example, we're wrapping the call to `main` inside an asynchronous function called `run`. This is because `main` returns a promise that resolves with the final environment — the output of the last step in the HeroML script. The `run` function is then called to initiate the interpretation process.
+
+This is all there is to using the HeroML interpreter! You can now build your own applications using HeroML. Remember to replace `Your HeroML script goes here` with your actual HeroML script.
+
+**Note:** If an error occurs during the interpretation process, it will be caught in the `catch` block and logged to the console.
+
 # HeroML Extension for Visual Studio Code
 
 This extension provides support for HeroML in Visual Studio Code, including syntax highlighting.
@@ -159,3 +227,7 @@ Enjoy writing your HeroML workflows with syntax highlighting!
 
 This documentation provides a basic overview of how to create and use workflows in HeroML v0.0.1. As the language evolves, new features and functionalities will be added. For the most up-to-date information, always refer to the latest documentation.
 
+### Author
+Hello there! My name is [Sam Chahine](https://twitter.com/HeroMeers), and I'm the creator of HeroML. I built this project during the #AISF hackathon, an event that brings together innovators from all walks of life to collaborate and create something amazing in the field of AI. The hackathon was hosted by [Founders, Inc.](https://f.inc/), an organization based in San Francisco that loves AI! (Who doesn't?)
+
+HeroML is an AI Prompt Chain/Workflow interpreter that can be a game changer for developers who work with AI models like OpenAI's GPT-3 and GPT-4. I plan to add support for more models from various platforms in the future. My hope is that HeroML can become a valuable tool that helps bridge the gap between AI and human creativity.
