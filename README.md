@@ -252,7 +252,7 @@ Enjoy writing your HeroML workflows with syntax highlighting!
 
 This documentation provides a basic overview of how to create and use workflows in HeroML v0.0.1. As the language evolves, new features and functionalities will be added. For the most up-to-date information, always refer to the latest documentation.
 
-# HeroML Rules
+# Formatting Rules
 
 ## 1. Step Separation
 Different steps in the HeroML script are separated by `->>>>`.
