@@ -292,6 +292,8 @@ ForEveryItemDoThis: for every item in this array, write 15 words:
 ### Author
 Hello there! My name is [Sam Chahine](https://twitter.com/HeroMeers), and I'm the creator of HeroML. I built this project during the #AISF hackathon, an event that brings together innovators from all walks of life to collaborate and create something amazing in the field of AI. The hackathon was hosted by [Founders, Inc.](https://f.inc/), an organization based in San Francisco that loves AI! (Who doesn't?)
 
+If you'd like to reach out, my personal email is sechahi at gmail dot com!
+
 HeroML is an AI Prompt Chain/Workflow interpreter that can be a game changer for developers who work with AI models like OpenAI's GPT-3 and GPT-4. I plan to add support for more models from various platforms in the future. My hope is that HeroML can become a valuable tool that helps bridge the gap between AI and human creativity.
 
 Want to build the python compiler? **PULL REQUEESSSST** 
