@@ -36,10 +36,29 @@ class HeroMLAction(BaseModel):
     referencedResponse: str | None
 
 
-def parse_hero_ml(code: str) -> List[HeroMLAction]:
-    # perhaps this should be different
-    actions = list()
-    steps = code.split("->>>>")
+def parse_hero_ml(code: str) -> List[dict]:
+    actions = []
+    steps = code.split('->>>>')
+
+    for step in steps:
+        rules = parse_rules(step)
+        variables = extract_variables(step)
+        parsed_action = parse_action_string(step)
+
+        action = {
+            'type': 'default',
+            'variable': variables,
+            'rules': rules,
+            'actions': step.strip(),
+            'referencedResponse': None
+        }
+
+        if parsed_action:
+            action['type'] = parsed_action['action']
+            action['actions'] = parsed_action['forEachItemDoThis']
+            action['referencedResponse'] = parsed_action['referencedResponse']
+
+        actions.append(action)
 
     return actions
 
@@ -80,7 +99,7 @@ def parse_heroML_to_AST(actions: List[HeroMLAction]) -> List[ASTNode]:
 
 def parse_rules(input: str) -> Rules:
     return Rules(
-        show_item_in_list=(not "--hide-item-from-list" in input),
+        show_item_in_list=("--hide-item-from-list" not in input),
         ai_prompt=("--is-ai-prompt" in input),
     )
 
@@ -101,9 +120,10 @@ def extract_variables_from_ast(ast: List[ASTNode]) -> List[str]:
 
 
 def check_dynamic_prompt_for_rule(
-    prompt: str, current_index: int, whitelist: List[str] = []
+        prompt: str, current_index: int, whitelist: List[str] = []
 ) -> str:
-    # this function should most definitely be rewritten but I'm keeping it as is so as not to rewrite the existing codebase too much
+    # this function should most definitely be rewritten but I'm keeping it as is so as not to rewrite the existing
+    # codebase too much
     if prompt.strip() == "":
         return "empty_string"
 
@@ -119,7 +139,7 @@ def check_dynamic_prompt_for_rule(
             return "missing_underscore"
 
         prefix = variable_name[:underscore_index]
-        number = variable_name[underscore_index + 1 :]
+        number = variable_name[underscore_index + 1:]
 
         if "-" in number:
             return "negative_number"
@@ -142,54 +162,54 @@ Environment = Dict[str, Any]
 
 
 def interpret(
-    nodes: Union[List["ASTNode"], str],
-    dynamicEnvironment: Environment,
-    stepEnvironment: Environment = {},
-    depth: int = 0,
-    index: int = 0,
+        nodes: Union[List["ASTNode"], str],
+        dynamic_environment: Environment,
+        step_environment: Environment = {},
+        depth: int = 0,
+        index: int = 0,
 ) -> Environment:
     if isinstance(nodes, str):
-        parsedHeroMLData = parse_hero_ml(nodes)
-        AST = parse_heroML_to_AST(parsedHeroMLData)
-        nodes = AST
+        parsed_hero_ml_data = parse_hero_ml(nodes)
+        ast = parse_heroML_to_AST(parsed_hero_ml_data)
+        nodes = ast
 
     for node in nodes:
         log.info("Processing node:", node)
-        log.info("Current dynamicEnvironment:", dynamicEnvironment)
-        log.info("Current stepEnvironment:", stepEnvironment)
+        log.info("Current dynamicEnvironment:", dynamic_environment)
+        log.info("Current stepEnvironment:", step_environment)
 
-        newStepEnvironment = stepEnvironment.copy()
-        stepKey = f"step_{index + 1}"
+        new_step_environment = step_environment.copy()
+        step_key = f"step_{index + 1}"
 
         if node.type == "default":
             if isinstance(node.content, str):
-                dynamicEnvironment = evaluate(node.content, dynamicEnvironment, stepKey)
+                dynamic_environment = evaluate(node.content, dynamic_environment, step_key)
             else:
                 raise ValueError("Invalid content for default action")
         elif node.type == "Loop":
             try:
                 if node.referencedResponse:
-                    items = json.loads(dynamicEnvironment[node.referencedResponse])
+                    items = json.loads(dynamic_environment[node.referencedResponse])
                     if not isinstance(items, list):
                         raise ValueError("Loop variable is not an array")
                     else:
-                        subIndex = 1
+                        sub_index = 1
                         for item in items:
-                            loopEnvironment = {
-                                **newStepEnvironment,
+                            loop_environment = {
+                                **new_step_environment,
                                 node.variables[0]: item,
                             }
-                            loopStepKey = f"{stepKey}_{subIndex}"
+                            loop_step_key = f"{step_key}_{sub_index}"
                             if isinstance(node.content, str):
-                                dynamicEnvironment = evaluate(
-                                    node.content, dynamicEnvironment, loopStepKey, item
+                                dynamic_environment = evaluate(
+                                    node.content, dynamic_environment, loop_step_key, item
                                 )
-                                stepEnvironment[loopStepKey] = dynamicEnvironment[
-                                    loopStepKey
+                                step_environment[loop_step_key] = dynamic_environment[
+                                    loop_step_key
                                 ]
                             else:
                                 raise ValueError("Invalid content for Loop action")
-                            subIndex += 1
+                            sub_index += 1
                 else:
                     raise ValueError("Loop referenceResponse is null")
             except ValueError:
@@ -198,9 +218,9 @@ def interpret(
             raise ValueError(f"Unknown node type: {node.type}")
         index += 1
 
-    dynamicEnvironment.update(stepEnvironment)
+    dynamic_environment.update(step_environment)
 
-    return dynamicEnvironment
+    return dynamic_environment
 
 
 def validate_parsed_heroML(actions: List[HeroMLAction]) -> str:
@@ -308,7 +328,7 @@ def replace_step_vars(text, environment):
 
 
 def evaluate(
-    content: str, environment: Environment, variable: str, item: Optional[str] = None
+        content: str, environment: Environment, variable: str, item: Optional[str] = None
 ) -> Environment:
     # Replace placeholders with their values from the environment
     print("Before placeholder replacement:", content)
