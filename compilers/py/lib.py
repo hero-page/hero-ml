@@ -336,7 +336,7 @@ def evaluate(
     content: str, environment: Environment, variable: str, item: Optional[str] = None
 ) -> Environment:
     # Replace placeholders with their values from the environment
-    print("Before placeholder replacement:", content)
+    log.debug("Before placeholder replacement:", content)
 
     replaced_content = replace_dynamic_vars(content, environment)
 
@@ -347,8 +347,7 @@ def evaluate(
         replaced_content = f"{replaced_content} \n{json.dumps(item)}"
 
     print("❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️")
-
-    print("After placeholder replacement:", replaced_content)
+    log.debug("After placeholder replacement:", replaced_content)
     print("--------------------------------")
     print("Sending prompt to GPT-4:", replaced_content)
 
@@ -358,7 +357,7 @@ def evaluate(
     )
 
     if gpt4_response is not None:
-        print(
+        log.info(
             "Received response from GPT-4:", gpt4_response["data"]["choices"][0]["text"]
         )
 
@@ -369,5 +368,5 @@ def evaluate(
         # Return the updated environment
         return updated_environment
     else:
-        print("Error: GPT-4 response is null")
+        log.fatal("Error: GPT-4 response is null")
         return environment

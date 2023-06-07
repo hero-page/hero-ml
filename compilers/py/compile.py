@@ -12,7 +12,7 @@ from lib import (
 from typing import Dict, Any
 import logging as log
 
-log.basicConfig(level=log.INFO)
+# log.basicConfig(level=log.INFO)
 
 
 def assign_initial_values(
@@ -54,11 +54,11 @@ def main(heroml: str, initial_values: Dict[str, Any]):
 if __name__ == "__main__":
     import sys
 
-    with open("StarterAI.heroml") as f:
+    with open(sys.argv[1]) as f:
         heroml = f.read()
 
     initial_values = {
-        "name_of_startup": "Your Mom",
+        "name_of_startup": "My Mom",
         "what_startup_does": "Watches regular show",
     }
 
