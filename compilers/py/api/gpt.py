@@ -26,5 +26,5 @@ def call_gpt4(options: CallGPT4Options):
             }
         }
     except Exception as error:
-        log.fatal("Error calling GPT-4:", error)
+        log.fatal(f"Error calling GPT-4: {error}")
         return None

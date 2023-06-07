@@ -19,7 +19,7 @@ class ActionType(Enum):
 
 
 class ASTNode(BaseModel):
-    type: str
+    type: ActionType
     variables: List[str] = list()
     rules: Rules
     # This is very confusing
@@ -31,32 +31,32 @@ class ASTNode(BaseModel):
 class HeroMLAction(BaseModel):
     type: ActionType
     variable: List[str]
-    actions: str | List[ASTNode]
+    actions: Union[str, List[ASTNode]]
     rules: Rules
-    referencedResponse: str | None
+    referencedResponse: Union[str, None] = None
 
 
-def parse_hero_ml(code: str) -> List[dict]:
+def parse_hero_ml(code: str) -> List[HeroMLAction]:
     actions = []
-    steps = code.split('->>>>')
+    steps = code.split("->>>>")
 
     for step in steps:
         rules = parse_rules(step)
         variables = extract_variables(step)
         parsed_action = parse_action_string(step)
 
-        action = {
-            'type': 'default',
-            'variable': variables,
-            'rules': rules,
-            'actions': step.strip(),
-            'referencedResponse': None
-        }
+        action = HeroMLAction(
+            type=ActionType.default,
+            variable=variables,
+            rules=rules,
+            actions=step.strip(),
+            referencedResponse=None,
+        )
 
         if parsed_action:
-            action['type'] = parsed_action['action']
-            action['actions'] = parsed_action['forEachItemDoThis']
-            action['referencedResponse'] = parsed_action['referencedResponse']
+            action.type = ActionType(parsed_action["action"])
+            action.actions = parsed_action["forEachItemDoThis"]
+            action.referencedResponse = parsed_action["referencedResponse"]
 
         actions.append(action)
 
@@ -68,8 +68,9 @@ def parse_heroML_to_AST(actions: List[HeroMLAction]) -> List[ASTNode]:
 
     for action in actions:
         if isinstance(action.actions, str):
+            log.info(action)
             node = ASTNode(
-                type=action.type.value,
+                type=action.type,
                 variables=action.variable,
                 rules=action.rules,
                 content=action.actions,
@@ -80,7 +81,7 @@ def parse_heroML_to_AST(actions: List[HeroMLAction]) -> List[ASTNode]:
             )
         elif isinstance(action.actions, list):
             node = ASTNode(
-                type=action.type.value,
+                type=action.type,
                 variables=action.variable,
                 rules=action.rules,
                 content=action.actions,
@@ -120,7 +121,7 @@ def extract_variables_from_ast(ast: List[ASTNode]) -> List[str]:
 
 
 def check_dynamic_prompt_for_rule(
-        prompt: str, current_index: int, whitelist: List[str] = []
+    prompt: str, current_index: int, whitelist: List[str] = []
 ) -> str:
     # this function should most definitely be rewritten but I'm keeping it as is so as not to rewrite the existing
     # codebase too much
@@ -162,11 +163,11 @@ Environment = Dict[str, Any]
 
 
 def interpret(
-        nodes: Union[List["ASTNode"], str],
-        dynamic_environment: Environment,
-        step_environment: Environment = {},
-        depth: int = 0,
-        index: int = 0,
+    nodes: Union[List["ASTNode"], str],
+    dynamic_environment: Environment,
+    step_environment: Environment = {},
+    depth: int = 0,
+    index: int = 0,
 ) -> Environment:
     if isinstance(nodes, str):
         parsed_hero_ml_data = parse_hero_ml(nodes)
@@ -174,19 +175,21 @@ def interpret(
         nodes = ast
 
     for node in nodes:
-        log.info("Processing node:", node)
-        log.info("Current dynamicEnvironment:", dynamic_environment)
-        log.info("Current stepEnvironment:", step_environment)
+        log.info(f"Processing node: {node}")
+        log.info(f"Current dynamicEnvironment: {dynamic_environment}")
+        log.info(f"Current stepEnvironment: {step_environment}")
 
         new_step_environment = step_environment.copy()
         step_key = f"step_{index + 1}"
 
-        if node.type == "default":
+        if node.type == ActionType.default:
             if isinstance(node.content, str):
-                dynamic_environment = evaluate(node.content, dynamic_environment, step_key)
+                dynamic_environment = evaluate(
+                    node.content, dynamic_environment, step_key
+                )
             else:
                 raise ValueError("Invalid content for default action")
-        elif node.type == "Loop":
+        elif node.type == ActionType.loop:
             try:
                 if node.referencedResponse:
                     items = json.loads(dynamic_environment[node.referencedResponse])
@@ -202,7 +205,10 @@ def interpret(
                             loop_step_key = f"{step_key}_{sub_index}"
                             if isinstance(node.content, str):
                                 dynamic_environment = evaluate(
-                                    node.content, dynamic_environment, loop_step_key, item
+                                    node.content,
+                                    dynamic_environment,
+                                    loop_step_key,
+                                    item,
                                 )
                                 step_environment[loop_step_key] = dynamic_environment[
                                     loop_step_key
@@ -289,8 +295,7 @@ def parse_action_string(string):
             else True,
             "referencedResponse": reference_match.group(1) if reference_match else None,
         }
-    else:
-        return None
+    return {}
 
 
 def replace_dynamic_vars(text, environment):
@@ -328,7 +333,7 @@ def replace_step_vars(text, environment):
 
 
 def evaluate(
-        content: str, environment: Environment, variable: str, item: Optional[str] = None
+    content: str, environment: Environment, variable: str, item: Optional[str] = None
 ) -> Environment:
     # Replace placeholders with their values from the environment
     print("Before placeholder replacement:", content)

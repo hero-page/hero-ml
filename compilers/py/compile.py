@@ -12,7 +12,8 @@ from lib import (
 from typing import Dict, Any
 import logging as log
 
-log.basicConfig(level=log.DEBUG)
+log.basicConfig(level=log.INFO)
+
 
 def assign_initial_values(
     heroml: str, initial_values: Dict[str, Any]
@@ -30,27 +31,24 @@ def assign_initial_values(
 
 
 def main(heroml: str, initial_values: Dict[str, Any]):
-    try:
-        parsed_hero_ml_data = parse_hero_ml(heroml)
+    parsed_hero_ml_data = parse_hero_ml(heroml)
 
-        status = validate_parsed_heroML(parsed_hero_ml_data)
-        log.info(f"Parsed actions: {status}")
+    status = validate_parsed_heroML(parsed_hero_ml_data)
+    log.info(f"Parsed actions: {status}")
 
-        if status == "valid":
-            ast = parse_heroML_to_AST(parsed_hero_ml_data)
-            environment = assign_initial_values(heroml, initial_values)
+    if status == "valid":
+        ast = parse_heroML_to_AST(parsed_hero_ml_data)
+        environment = assign_initial_values(heroml, initial_values)
 
-            log.info(f"Initial environment: {environment}")
+        log.info(f"Initial environment: {environment}")
 
-            try:
-                final_environment = interpret(ast, environment)
-                log.info(f"Final environment: {final_environment}")
+        try:
+            final_environment = interpret(ast, environment)
+            log.info(f"Final environment: {final_environment}")
 
-                return final_environment
-            except Exception as error:
-                log.fatal(f"Error interpreting: {error}")
-    except Exception as error:
-        log.fatal(f"Error: {error}")
+            return final_environment
+        except Exception as error:
+            log.fatal(f"Error interpreting: {error}")
 
 
 if __name__ == "__main__":
