@@ -123,7 +123,7 @@ def extract_variables_from_ast(ast: List[ASTNode]) -> List[str]:
 def check_dynamic_prompt_for_rule(
     prompt: str, current_index: int, whitelist: List[str] = []
 ) -> str:
-    # this function should most definitely be rewritten but I'm keeping it as is so as not to rewrite the existing
+    # this function should most definitely be rewritten, but I'm keeping it as is so as not to rewrite the existing
     # codebase too much
     if prompt.strip() == "":
         return "empty_string"
@@ -336,7 +336,7 @@ def evaluate(
     content: str, environment: Environment, variable: str, item: Optional[str] = None
 ) -> Environment:
     # Replace placeholders with their values from the environment
-    log.debug("Before placeholder replacement:", content)
+    log.debug(f"Before placeholder replacement: {content}")
 
     replaced_content = replace_dynamic_vars(content, environment)
 
@@ -347,9 +347,9 @@ def evaluate(
         replaced_content = f"{replaced_content} \n{json.dumps(item)}"
 
     print("❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️")
-    log.debug("After placeholder replacement:", replaced_content)
+    log.debug(f"After placeholder replacement: {replaced_content}")
     print("--------------------------------")
-    print("Sending prompt to GPT-4:", replaced_content)
+    print(f"Sending prompt to GPT-4: {replaced_content}")
 
     # Call GPT-4 with the replaced content
     gpt4_response = call_gpt4(
@@ -358,7 +358,7 @@ def evaluate(
 
     if gpt4_response is not None:
         log.info(
-            "Received response from GPT-4:", gpt4_response["data"]["choices"][0]["text"]
+            f"Received response from GPT-4: {gpt4_response['data']['choices'][0]['text']}"
         )
 
         # Create a copy of the environment and update only the copy with the response
