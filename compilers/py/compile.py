@@ -1,5 +1,3 @@
-import logging
-
 from lib import (
     parse_hero_ml,
     parse_heroML_to_AST,
@@ -54,12 +52,19 @@ def main(heroml: str, initial_values: Dict[str, Any]):
 if __name__ == "__main__":
     import sys
 
+    if len(sys.argv) != 2:
+        print("Usage: python compile.py {HEROML_SCRIPT}")
+        sys.exit(1)
+
     with open(sys.argv[1]) as f:
         heroml = f.read()
 
-    initial_values = {
-        "name_of_startup": "My Mom",
-        "what_startup_does": "Watches regular show",
-    }
+    initial_values = dict()
+
+    # Example for StarterAi.heroml
+    # initial_values = {
+    #     "name_of_startup": "My Mom",
+    #     "what_startup_does": "watches regular show",
+    # }
 
     main(heroml, initial_values)
