@@ -236,7 +236,7 @@ pip install -r requirements.txt
 python compile.py ./../../examples/Colors.heroml
 ```
 
-_If `python` doesn't work, try `python3`
+_If `python` doesn't work, try `python3`_
 
 This is all there is to using the HeroML interpreter! You can now build your own applications using HeroML. Remember to replace `Your HeroML script goes here` with your actual HeroML script.
 
@@ -316,21 +316,21 @@ ForEveryItemDoThis: for every item in this array, write 15 words:
 
 ## Using HeroML Instruction Flags
 
-- [Tutorial: Using HeroML Instruction Flags](#tutorial-using-heroml-instruction-flags)
-  - [Why use instruction flags?](#why-use-instruction-flags)
-  - [How to use instruction flags?](#how-to-use-instruction-flags)
-  - [Available Instructions](#available-instructions)
-    - [`--return-json-array-strings`](#return-json-array-strings)
-    - [`--return-json-array-numbers`](#return-json-array-numbers)
-    - [`--return-json-array-boolean`](#return-json-array-boolean)
-    - [`--return-json-array-dates`](#return-json-array-dates)
-    - [`--return-json-array-objects`](#return-json-array-objects)
-    - [`--return-json-array-objects-two-keys`](#return-json-array-objects-two-keys)
-    - [`--return-json-array-objects-three-keys`](#return-json-array-objects-three-keys)
-    - [`--return-json-array-objects-mixed`](#return-json-array-objects-mixed)
-    - [`--return-json-array-objects-nested`](#return-json-array-objects-nested)
-    - [`--return-json-array-objects-arrays`](#return-json-array-objects-arrays)
-    - [`--return-json-array-mixed`](#return-json-array-mixed)
+- Tutorial: Using HeroML Instruction Flags
+  - Why use instruction flags?
+  - How to use instruction flags?
+  - Available Instructions
+    - `--return-json-array-strings`
+    - `--return-json-array-numbers`
+    - `--return-json-array-boolean`
+    - `--return-json-array-dates`
+    - `--return-json-array-objects`
+    - `--return-json-array-objects-two-keys`
+    - `--return-json-array-objects-three-keys`
+    - `--return-json-array-objects-mixed`
+    - `--return-json-array-objects-nested`
+    - `--return-json-array-objects-arrays`
+    - `--return-json-array-mixed`
 
 
 In HeroML, we often use AI prompts to direct our models in specific ways. We can ask the model to return responses that are JSON arrays, strings, numbers, or even more complex structures. To make this process more efficient, we have predefined certain instructions, called instruction flags, that you can insert into your prompts.
