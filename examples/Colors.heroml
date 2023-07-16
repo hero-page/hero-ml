@@ -1,4 +1,6 @@
-Generate a list of {{number_of_colors}} colors
+Generate a list of only {{number_of_colors}} color(s), but don't pick {{bad_color}}
+
+Make sure it's only {{number_of_colors}} color(s)
 
 --return-json-array-strings
 
@@ -6,9 +8,3 @@ Generate a list of {{number_of_colors}} colors
 
 Generate a list of {{number_of_colors}} names, whose last names are respectively: {{step_1}}
 
-->>>>
-
-ACTION: Loop
-ManyItems: TRUE
-ForEveryItemDoThis: Please write a small intro about this color, tell me about any spiritual meaning it has:
-{{step_1}}

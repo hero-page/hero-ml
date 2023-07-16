@@ -16,7 +16,7 @@ Download [VSCode Syntax Highlighter Ext. here](https://marketplace.visualstudio.
 
 # Table of Contents
 
-1. [HeroML v0.0.1 Documentation](#heroml-v001-documentation)
+1. [HeroML v0.0.2 Documentation](#heroml-v001-documentation)
 2. [How to use HeroML Interpreter in your project](#how-to-use-heroml-interpreter-in-your-project)
 3. [HeroML Extension for Visual Studio Code](#heroml-extension-for-visual-studio-code)
 4. [Formatting Rules](#formatting-rules)
@@ -29,6 +29,75 @@ Download [VSCode Syntax Highlighter Ext. here](https://marketplace.visualstudio.
 HeroML (Hero Markup Language) is a novel approach for setting up multi-step workflows to interact with AI models like OpenAI's GPT-3 and GPT-4. 
 
 In this version, you can set up workflows in a series of steps, where each step is a prompt that the AI will respond to. The responses from previous steps can be used in the prompts for later steps.
+
+## Install Hero CLI
+### HeroML CLI Tool Tutorial
+
+This tutorial guides you through the process of installing and using the HeroML CLI tool. 
+
+#### Installation
+
+To install the HeroML CLI tool, you need to have Node.js and npm (comes with Node.js) installed on your machine. If you don't have these, please install them first. 
+
+Then, run the following command in your terminal:
+
+```bash
+npm install -g heroml
+```
+
+This will install the HeroML CLI tool globally on your system, allowing you to use the `hero` command from any directory.
+
+#### Configuration
+
+Before using the HeroML CLI tool, you need to configure your OpenAI API key. 
+
+Create a `heroconfig.json` file in your home directory with the following content:
+
+```json
+{
+  "openaiApiKey": "your-openai-api-key"
+}
+```
+
+Replace `"your-openai-api-key"` with your actual OpenAI API key.
+
+#### Usage
+
+To run a HeroML script, use the `run` command followed by the path to your script:
+
+```bash
+hero run /path/to/your/script.heroml
+```
+
+You can provide initial variable values as command-line options. For example, if your script expects a variable named `number_of_colors`, you can provide its value as follows:
+
+```bash
+hero run --number_of_colors 4 /path/to/your/script.heroml
+```
+
+If you do not provide a value for a variable, the HeroML CLI tool will prompt you to enter it interactively.
+
+### Output Options
+
+You can specify the output directory and the filename of the output file using command-line options:
+
+- The `-o` or `--output-dir` option allows you to specify the output directory. By default, it is `./outputs/`.
+
+```bash
+hero run --output-dir /custom/output/directory /path/to/your/script.heroml
+```
+
+- The `-f` or `--filename` option allows you to specify the filename of the output file. By default, it is `response_TIMESTAMP.json`.
+
+```bash
+hero run --filename custom_filename.json /path/to/your/script.heroml
+```
+
+The CLI tool writes the output to a JSON file in the specified directory. It will print the path of the output file to the console:
+
+```bash
+Success! Output written to /custom/output/directory/custom_filename.json
+```
 
 ## Basic Workflow
 

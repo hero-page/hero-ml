@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2015",                          
+    "module": "commonjs",                     
+    "esModuleInterop": true,                  
+    "allowSyntheticDefaultImports": true,     
+    "outDir": "dist",                       
+    "strict": true, 
+    "downlevelIteration": true,                         
+    "forceConsistentCasingInFileNames": true  
+  },
+  "include": ["**/*.ts"],                     
+  "exclude": ["node_modules"]                 
+}
