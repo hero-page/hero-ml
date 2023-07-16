@@ -203,20 +203,23 @@ let finalEnvironment = {
 ```
 
 To use your OpenAI API key, add:
-```
+```bash
 OPENAI_API_KEY="YOUR_KEY_HERE"
 ```
 
 to your `.env` file, and make sure _not_ to push it up... like me.
 
-To test, run: 
 
-```
+## Compilation
+
+### Typescript
+
+To use the TypeScript compiler, run:
+
+```bash
 npx ts-node index.ts
 ```
 
-<<<<<<< Updated upstream
-=======
 ### Python
 
 I recommend making a virtual environment and sourcing it since the openai library has a lot of dependencies. If you don't understand what this means, don't worry about it; it's an optional step that doesn't make much of a difference.
@@ -229,13 +232,12 @@ source venv/bin/activate
 
 ```bash
 pip install -r requirements.txt
+
 python compile.py ./../../examples/Colors.heroml
 ```
 
 _If `python` doesn't work, try `python3`
 
-
->>>>>>> Stashed changes
 This is all there is to using the HeroML interpreter! You can now build your own applications using HeroML. Remember to replace `Your HeroML script goes here` with your actual HeroML script.
 
 **Note:** If an error occurs during the interpretation process, it will be caught in the `catch` block and logged to the console.
@@ -550,18 +552,19 @@ Here are the available instructions and examples of how to use each one:
 Note: It's important to always test your AI prompts to make sure they return the expected results as different AI versions might behave differently.
 
 ### Author
+
 Hello there! My name is [Sam Chahine](https://twitter.com/HeroMeers), and I'm the creator of HeroML. I built this project during the #AISF hackathon, an event that brings together innovators from all walks of life to collaborate and create something amazing in the field of AI. The hackathon was hosted by [Founders, Inc.](https://f.inc/), an organization based in San Francisco that loves AI! (Who doesn't?)
 
 If you'd like to reach out, my personal email is sechahi at gmail dot com!
 
 HeroML is an AI Prompt Chain/Workflow interpreter that can be a game changer for developers who work with AI models like OpenAI's GPT-3 and GPT-4. I plan to add support for more models from various platforms in the future. My hope is that HeroML can become a valuable tool that helps bridge the gap between AI and human creativity.
 
-<<<<<<< Updated upstream
 Want to build the python compiler? **PULL REQUEESSSST** 
-=======
+
 **Update 17/07/2023** I want to thank @Shinji322 a thousand times for writing an amazing Python compiler for HeroML! You are amazing, check out his github profile down below 😊
+
 
 #### Contributors
 
 * Python compiler: [Shinji322](https://github.com/Shinji322).
->>>>>>> Stashed changes
+
