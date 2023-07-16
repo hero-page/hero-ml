@@ -5,8 +5,6 @@ require('dotenv').config();
 const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
 const openai = new OpenAIApi(configuration);
 
-console.log(process.env.OPENAI_API_KEY)
-
 interface CallGPT4Options {
   model: string;
   prompt: string;

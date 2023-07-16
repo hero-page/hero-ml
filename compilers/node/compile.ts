@@ -1,4 +1,4 @@
-import { parseHeroML, validateParsedHeroML, parseHeroMLToAST, interpret, extractVariables } from './index';
+import { parseHeroML, parseInstructions, validateParsedHeroML, parseHeroMLToAST, interpret, extractVariables } from './index';
 
 const assignInitialValues = (heroml: string, initialValues: { [key: string]: any }): { [key: string]: any } => {
     const variables = extractVariables(heroml);
@@ -16,22 +16,19 @@ const assignInitialValues = (heroml: string, initialValues: { [key: string]: any
 };
   
 
-export async function main(heroml: string, initialValues: { [key: string]: any }) {
+export async function main(raw_heroml: string, initialValues: { [key: string]: any }) {
   try {
+    const heroml = parseInstructions(raw_heroml);
     const parsedHeroMLData = await parseHeroML(heroml);
 
     const status = validateParsedHeroML(parsedHeroMLData);
-    console.log('Parsed actions:', status);
 
     if (status === "valid") {
       const AST = parseHeroMLToAST(parsedHeroMLData);
       const environment = assignInitialValues(heroml, initialValues);
       
-      console.log('Initial environment:', environment);
-    
       try {
         const finalEnvironment = await interpret(AST, environment);
-        console.log('Final environment:', finalEnvironment);
 
         return finalEnvironment;
       } catch (error) {

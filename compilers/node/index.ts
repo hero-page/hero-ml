@@ -1,4 +1,4 @@
-import fs from 'fs';
+import instructions from "../../utils/instructions";
 
 import callGPT4 from './api/gpt';
 
@@ -263,9 +263,6 @@ async function interpret(nodes: ASTNode[] | string, dynamicEnvironment: Environm
 
     for (const node of nodes) {
         console.log('Processing node:', node);
-        console.log('Current dynamicEnvironment:', dynamicEnvironment);
-        console.log('Current stepEnvironment:', stepEnvironment);
-
         let newStepEnvironment = { ...stepEnvironment };
         let stepKey = `step_${index + 1}`;
 
@@ -319,7 +316,6 @@ async function interpret(nodes: ASTNode[] | string, dynamicEnvironment: Environm
 
 function replaceDynamicVars(text: string, environment: Environment): string {
     return text.replace(/{{(?!step_\d+)(.*?)}}/g, (_, variable) => {
-      console.log('Replace variable:', variable, 'Environment:', environment);
       if (environment.hasOwnProperty(variable)) {
         if (typeof environment[variable] === 'string') {
           return environment[variable];
@@ -336,7 +332,6 @@ function replaceDynamicVars(text: string, environment: Environment): string {
   
 function replaceStepVars(text: string, environment: Environment): string {
     return text.replace(/{{(step_\d+)}}/g, (_, variable) => {
-      console.log('Replace variable:', variable, 'Environment:', environment);
       if (environment.hasOwnProperty(variable)) {
         if (typeof environment[variable] === 'string') {
           return environment[variable];
@@ -368,8 +363,6 @@ type GPT4Response = {
 
 async function evaluate(content: string, environment: Environment, variable: string, item: string | null = null): Promise<Environment> {
     // Replace placeholders with their values from the environment
-    console.log('Before placeholder replacement:', content);
-
     let replacedContent = replaceDynamicVars(content, environment);
 
     // Replace step variables as well
@@ -379,19 +372,14 @@ async function evaluate(content: string, environment: Environment, variable: str
         replacedContent = `${replacedContent} \n
 ${JSON.stringify(item)}`;
 
-console.log("❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️");
+        console.log("❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️");
     };
-
-    console.log('After placeholder replacement:', replacedContent);
-    
-    console.log('--------------------------------');
-    console.log('Sending prompt to GPT-4:', replacedContent);
     
     // Call GPT-4 with the replaced content
     return callGPT4({ prompt: replacedContent, model: "gpt-3.5-turbo" })
       .then((gpt4Response: GPT4Response | null) => {
           if (gpt4Response) {
-              console.log('Received response from GPT-4:', gpt4Response.data.choices[0].text);
+              // console.log('Received response from GPT-4:', gpt4Response.data.choices[0].text);
               
               // Create a copy of the environment and update only the copy with the response
               const updatedEnvironment = { ...environment };
@@ -406,9 +394,35 @@ console.log("❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️"
       });
 }
 
+function parseInstructions(str: string): string {
+    try {
+        // Ensure that str is a string
+        if (typeof str !== "string") {
+            throw new Error("Expected a string as input");
+        }
+
+        let parsedString = str;
+
+        for (const [rule, instruction] of Object.entries(instructions)) {
+            // Replace each occurrence of the rule with its instruction
+            const regex = new RegExp(rule, "g");
+            parsedString = parsedString.replace(regex, instruction);
+        }
+
+        // You might want to remove any double spaces that might have been created when replacing rules
+        parsedString = parsedString.replace(/  +/g, " ");
+
+        return parsedString.trim();
+    } catch (err) {
+        // Log the error message and return the original string
+        console.error(err);
+        return str;
+    }
+}
 
 export {
     parseHeroML,
+    parseInstructions,
     validateParsedHeroML,
     parseHeroMLToAST,
     interpret,

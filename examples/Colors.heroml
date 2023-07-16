@@ -1,0 +1,14 @@
+Generate a list of {{number_of_colors}} colors
+
+--return-json-array-strings
+
+->>>>
+
+Generate a list of {{number_of_colors}} names, whose last names are respectively: {{step_1}}
+
+->>>>
+
+ACTION: Loop
+ManyItems: TRUE
+ForEveryItemDoThis: Please write a small intro about this color, tell me about any spiritual meaning it has:
+{{step_1}}
