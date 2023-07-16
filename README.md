@@ -1,4 +1,4 @@
-![HeroML version](https://img.shields.io/badge/HeroML-v1.0.3-%23171719)
+![HeroML version](https://img.shields.io/badge/HeroML-v1.0.4-%23171719)
 ![GitHub contributors](https://img.shields.io/github/contributors/hero-page/hero-ml?color=%23e82f64)
 ![Open issues](https://img.shields.io/github/issues-raw/hero-page/hero-ml?color=%23D264B6)
 ![Last commit](https://img.shields.io/github/last-commit/hero-page/hero-ml?color=%23067AFE)
