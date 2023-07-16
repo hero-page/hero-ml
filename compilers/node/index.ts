@@ -2,6 +2,7 @@ import instructions from "../../utils/instructions";
 
 import callGPT4 from './api/gpt';
 
+
 interface Rules {
     showItemInList: boolean;
     isAIPrompt: boolean;
@@ -195,7 +196,9 @@ function extractVariables(content: string): string[] {
     let re = /{{(.*?)}}/g, match;
 
     while ((match = re.exec(content)) != null) {
-        variables.push(match[1]);
+        if (!match[1].includes("step")) {
+            variables.push(match[1]);
+        }
     }
 
     return variables;
@@ -262,7 +265,8 @@ async function interpret(nodes: ASTNode[] | string, dynamicEnvironment: Environm
     }
 
     for (const node of nodes) {
-        console.log('Processing node:', node);
+        // console.log('Processing node:', node);
+
         let newStepEnvironment = { ...stepEnvironment };
         let stepKey = `step_${index + 1}`;
 
@@ -372,7 +376,7 @@ async function evaluate(content: string, environment: Environment, variable: str
         replacedContent = `${replacedContent} \n
 ${JSON.stringify(item)}`;
 
-        console.log("❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️");
+        // console.log("❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️❣️");
     };
     
     // Call GPT-4 with the replaced content

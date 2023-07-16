@@ -22,8 +22,6 @@ async function callGPT4(options: CallGPT4Options) {
       messages: [{ role: 'user', content: options.prompt }],
     });
 
-    console.log("👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾👾");
-
     return {
       data: {
         choices: [
