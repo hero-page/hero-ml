@@ -1,4 +1,4 @@
-![HeroML version](https://img.shields.io/badge/HeroML-v1.0.0-%23171719)
+![HeroML version](https://img.shields.io/badge/HeroML-v1.0.3-%23171719)
 ![GitHub contributors](https://img.shields.io/github/contributors/hero-page/hero-ml?color=%23e82f64)
 ![Open issues](https://img.shields.io/github/issues-raw/hero-page/hero-ml?color=%23D264B6)
 ![Last commit](https://img.shields.io/github/last-commit/hero-page/hero-ml?color=%23067AFE)
@@ -16,7 +16,7 @@ Download [VSCode Syntax Highlighter Ext. here](https://marketplace.visualstudio.
 
 # Table of Contents
 
-1. [HeroML v1.0.0 Documentation](#heroml-v100-documentation)
+1. [HeroML Documentation](#heroml-documentation)
 2. [How to use HeroML Interpreter in your project](#how-to-use-heroml-interpreter-in-your-project)
 3. [HeroML Extension for Visual Studio Code](#heroml-extension-for-visual-studio-code)
 4. [Formatting Rules](#formatting-rules)
@@ -24,7 +24,7 @@ Download [VSCode Syntax Highlighter Ext. here](https://marketplace.visualstudio.
 ![HeroML Image](https://firebasestorage.googleapis.com/v0/b/focushero-1650416072840.appspot.com/o/featured_images%2Fsamoshasfallen_a_cute_cartoon_of_a_spaceman_flying_in_space_whi_33f87d18-834f-4ec3-8f08-c4f79d51caaf%20(1).webp?alt=media&token=f5bcc9f9-e414-4610-b7e7-04388194e857)
 
 
-# HeroML v1.0.0 Documentation
+# HeroML Documentation
 
 HeroML (Hero Markup Language) is a novel approach for setting up multi-step workflows to interact with AI models like OpenAI's GPT-3 and GPT-4. 
 
@@ -46,6 +46,20 @@ npm install -g heroml
 ```
 
 This will install the HeroML CLI tool globally on your system, allowing you to use the `hero` command from any directory.
+
+If you don't want to install it globally, you can run:
+
+```bash
+npm install heroml
+```
+
+and use it like:
+
+```bash
+npx hero run ./path/to/file.heroml
+```
+
+We'll be using `hero run ...` in this tutorial for simplicty.
 
 #### Configuration
 

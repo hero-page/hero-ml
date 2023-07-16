@@ -10,29 +10,6 @@ import { extractVariables } from "./compilers/node/index";
 
 import prompt from 'prompt';
 
-import os from 'os';
-
-const CONFIG_FILE_NAME = 'heroconfig.json';
-
-// Look for the config file in the user's home directory
-const configPath = path.join(os.homedir(), CONFIG_FILE_NAME);
-
-interface Config {
-  openaiApiKey?: string;
-  // Add any other properties you need here
-}
-
-let config: Config = {};
-
-if (fs.existsSync(configPath)) {
-  // If the config file exists, read and parse it
-  const configFile = fs.readFileSync(configPath, 'utf8');
-  config = JSON.parse(configFile);
-}
-
-// Now you can use `config` to get your settings. For example:
-const apiKey = config.openaiApiKey || process.env.OPENAI_API_KEY;
-
 yargs(hideBin(process.argv))
   .command('run <file>', 'run the HeroML script', (yargs) => {
     yargs.positional('file', {

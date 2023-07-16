@@ -1,8 +1,38 @@
 import { Configuration, OpenAIApi } from 'openai';
 require('dotenv').config();
 
+import path from "path";
+import fs from "fs";
+import os from 'os';
+
+const CONFIG_FILE_NAME = 'heroconfig.json';
+
+// Look for the config file in the current directory
+const configPath = path.join(process.cwd(), CONFIG_FILE_NAME);
+
+interface Config {
+  openaiApiKey?: string;
+  // Add any other properties you need here
+}
+
+let config: Config = {};
+
+if (fs.existsSync(configPath)) {
+  // If the config file exists, read and parse it
+  const configFile = fs.readFileSync(configPath, 'utf8');
+  config = JSON.parse(configFile);
+}
+
+// Now you can use `config` to get your settings. For example:
+const apiKey = config.openaiApiKey || process.env.OPENAI_API_KEY;
+
+if (!apiKey) {
+  console.error('Error: No OpenAI API Key found. Please set it in the heroconfig.json file or the OPENAI_API_KEY environment variable.');
+  process.exit(1);
+}
+
 // Create a new configuration with your API key
-const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
+const configuration = new Configuration({ apiKey: apiKey });
 const openai = new OpenAIApi(configuration);
 
 interface CallGPT4Options {
