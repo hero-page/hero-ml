@@ -1,6 +1,6 @@
 {
   "name": "heroml",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "HeroML CLI Tool is a powerful tool for executing HeroML scripts, designed for building AI workflows and applications. Explore & Deploy HeroML apps on https://hero.page/apps",
   "main": "dist/index.js",
   "homepage": "https://hero.page",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@types/cli-progress": "^3.11.0",
     "@types/inquirer": "^9.0.3",
+    "@types/node-fetch": "^2.6.4",
     "@types/prompt": "^1.1.5",
     "@types/yargs": "^17.0.24",
     "ts-node": "^10.9.1",
