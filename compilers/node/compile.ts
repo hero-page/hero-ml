@@ -25,7 +25,7 @@ export async function main(raw_heroml: string, initialValues: { [key: string]: a
     // start the progress bar with a total value of 100 and initial value of 0
     progressBar.start(100, 0);
     const heroml = parseInstructions(raw_heroml);
-    console.log("const heroml = parseInstructions(raw_heroml)");
+    // console.log("const heroml = parseInstructions(raw_heroml)");
     progressBar.update(5);
     const parsedHeroMLData = await parseHeroML(heroml);
     // console.log("const parsedHeroMLData = await parseHeroML(heroml)");
