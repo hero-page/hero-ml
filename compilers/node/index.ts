@@ -196,7 +196,7 @@ function extractVariables(content: string): string[] {
     let re = /{{(.*?)}}/g, match;
 
     while ((match = re.exec(content)) != null) {
-        if (!match[1].includes("step")) {
+        if (!match[1].startsWith("step")) {
             variables.push(match[1]);
         }
     }

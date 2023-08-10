@@ -75,6 +75,11 @@ Create a `heroconfig.json` file in your home directory with the following conten
 
 Replace `"your-openai-api-key"` with your actual OpenAI API key.
 
+## Questions?
+Join our discord, will try to be as helpful as possible!
+
+[![Join Hero Discord link](https://firebasestorage.googleapis.com/v0/b/focushero-1650416072840.appspot.com/o/task_pictures%2F3514e48-484c-330-0a4a-d72c571672a-8eea077-600f-b346-4263-f3607863b4cc?alt=media&token=e0ebb1f9-283d-4bff-b0b0-75efd9d15232)](https://discord.gg/CqyV5kUK)
+
 #### Usage
 
 To run a HeroML script, use the `run` command followed by the path to your script:

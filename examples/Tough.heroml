@@ -1,0 +1,168 @@
+Your task is to write a "Lecture Notes" for the "Academic & University" industry, specifically for a "Professor". Let's begin with an Introduction, where you will present the topic of the lecture: {{lecture_topic}}.
+
+Here's some more context about the Lecture Notes:
+Lecture Topic: {{lecture_topic}}
+Lecture Content: {{lecture_content}}
+Lecture Theory: {{lecture_theory}}
+Lecture Application: {{lecture_application}}
+Lecture Evaluation: {{lecture_evaluation}}
+Lecture Summary: {{lecture_summary}}
+Next Lecture Topic: {{next_lecture_topic}}
+Student Notes: {{student_notes}}
+Lecture References: {{lecture_references}}
+
+->>>>
+
+Now that we have introduced the lecture topic:
+
+Introduction:
+{{step_1}}
+
+Your next step is to develop a Content Layout that logically progresses from one point to the next: {{lecture_content}}.
+
+->>>>
+
+We have an Introduction and a Content Layout now:
+
+Introduction:
+{{step_1}}
+
+Content Layout:
+{{step_2}}
+
+The next task is to create a Theory Section to explain the theoretical underpinnings of the topic: {{lecture_theory}}.
+
+->>>>
+
+With an Introduction, Content Layout, and a Theory Section, we have laid the groundwork for the lecture notes:
+
+Introduction:
+{{step_1}}
+
+Content Layout:
+{{step_2}}
+
+Theory Section:
+{{step_3}}
+
+Let's proceed to the Practical Application Section, clarifying ways to apply the theory in real life contexts: {{lecture_application}}.
+
+->>>>
+
+Our lecture notes now encompass the Introduction, Content Layout, Theory Section, and Practical Application Section:
+
+Introduction:
+{{step_1}}
+
+Content Layout:
+{{step_2}}
+
+Theory Section:
+{{step_3}}
+
+Practical Application:
+{{step_4}}
+
+The next step is to create an Evaluation Section to encourage critical thinking and synthesis: {{lecture_evaluation}}.
+
+->>>>
+
+Our lecture notes now comprise of an Introduction, Content Layout, Theory Section, Practical Application Section, and an Evaluation Section:
+
+Introduction:
+{{step_1}}
+
+Content Layout:
+{{step_2}}
+
+Theory Section:
+{{step_3}}
+
+Practical Application:
+{{step_4}}
+
+Evaluation Section:
+{{step_5}}
+
+Let's move on to the Summary: {{lecture_summary}} which will neatly wrap up the lecture notes.
+
+->>>>
+
+With the Introduction, Content Layout, Theory Section, Practical Application Section, Evaluation Section, and Summary, we have a comprehensive structure for the lecture:
+
+Introduction:
+{{step_1}}
+
+Content Layout:
+{{step_2}}
+
+Theory Section:
+{{step_3}}
+
+Practical Application:
+{{step_4}}
+
+Evaluation Section:
+{{step_5}}
+
+Summary:
+{{step_6}}
+
+Next, end with an announcement of Next Lecture's Focus: {{next_lecture_topic}}.
+
+->>>>
+
+Our lecture notes now includes the Introduction, Content Layout, Theory Section, Practical Application Section, Evaluation Section, Summary, and the announcement for the Next Lecture's Focus:
+
+Introduction:
+{{step_1}}
+
+Content Layout:
+{{step_2}}
+
+Theory Section:
+{{step_3}}
+
+Practical Application:
+{{step_4}}
+
+Evaluation Section:
+{{step_5}}
+
+Summary:
+{{step_6}}
+
+Next Lecture's Focus:
+{{step_7}}
+
+Now include a section for the student's Notes and Observations: {{student_notes}}.
+
+->>>>
+
+Our lecture now includes an Introduction, Content Layout, Theory Section, Practical Application Section, Evaluation Section, Summary, Next Lecture's Focus, and a section for Notes and Observations:
+
+Introduction:
+{{step_1}}
+
+Content Layout:
+{{step_2}}
+
+Theory Section:
+{{step_3}}
+
+Practical Application:
+{{step_4}}
+
+Evaluation Section:
+{{step_5}}
+
+Summary:
+{{step_6}}
+
+Next Lecture's Focus:
+{{step_7}}
+
+Notes and Observations:
+{{step_8}}
+
+Lastly, please include a References Section to cite sources of your content: {{lecture_references}}.

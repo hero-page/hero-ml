@@ -1,10 +1,11 @@
-Generate a list of only {{number_of_colors}} color(s), but don't pick {{bad_color}}
+Generate exactly {{number_of_colors}} colors
 
-Make sure it's only {{number_of_colors}} color(s)
-
---return-json-array-strings
+Only return the colors, don't be conversational.
 
 ->>>>
 
-Generate a list of {{number_of_colors}} names, whose last names are respectively: {{step_1}}
+For each of these {{number_of_colors}} colors, 
+generate 5 people's names, 
+where each last name is one of the above colors, respectively.
 
+Only return the names, don't be conversational.

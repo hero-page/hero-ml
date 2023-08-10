@@ -94,6 +94,46 @@ function writeOutput(outputDir: string, filename: string, finalEnvironment: any)
   console.log(`Success! Output written to ${outputPath}`);
 }
 
+// Output Handling for Markdown
+function writeMarkdownOutput(outputDir: string, filename: string, finalEnvironment: any) {
+  // Create the output directory if it does not exist
+  outputDir = path.resolve(outputDir);
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
+  // Define the output path
+  const outputPath = path.join(outputDir, filename + '.md');
+
+  // Filter keys that start with 'step_' and sort them
+  const stepKeys = Object.keys(finalEnvironment)
+    .filter(key => key.startsWith('step_'))
+    .sort((a, b) => {
+      const aStepNumbers = a.split('_').slice(1).map(Number);
+      const bStepNumbers = b.split('_').slice(1).map(Number);
+
+      for (let i = 0; i < Math.min(aStepNumbers.length, bStepNumbers.length); i++) {
+        if (aStepNumbers[i] !== bStepNumbers[i]) {
+          return aStepNumbers[i] - bStepNumbers[i];
+        }
+      }
+      
+      return aStepNumbers.length - bStepNumbers.length;
+    });
+
+  // Initialize markdown string
+  let markdownString = '';
+
+  // Add each 'step_' value to the markdown string
+  for (const key of stepKeys) {
+    markdownString += finalEnvironment[key] + '\n\n';
+  }
+
+  // Write the markdown string to the output file
+  fs.writeFileSync(outputPath, markdownString, 'utf8');
+  console.log(`Success! Markdown output written to ${outputPath}`);
+}
+
 // Configuration Handling
 function getConfig() {
   let config;
@@ -166,9 +206,12 @@ async function runCommand(argv: any) {
       }
 
       const dynamicInitialValues = Array.from(new Set(extractVariables(heroml)));
+      console.log(dynamicInitialValues);
       const initialValues = await getDynamicVariables(dynamicInitialValues, argv);
 
       const finalEnvironment = await main(heroml, initialValues);
+
+      writeMarkdownOutput(argv.output, argv.filename, finalEnvironment);
 
       writeOutput(argv.output, argv.filename, finalEnvironment);
 
